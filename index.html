@@ -50,12 +50,52 @@
             padding: 20px;
         }
         
+        .login-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #e8f4fc;
+            border-radius: 15px;
+            border-left: 5px solid #2980b9;
+        }
+        
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-control {
+            padding: 12px 15px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #2980b9;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+        }
+        
         .data-section {
             margin-bottom: 25px;
             padding: 20px;
             background: #f8f9fa;
             border-radius: 15px;
             border-left: 5px solid #3498db;
+            display: none;
         }
         
         .section-title {
@@ -112,14 +152,34 @@
             color: white;
         }
         
-        .btn-primary:hover {
+        .btn-primary:hover:not(:disabled) {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            color: white;
+        }
+        
+        .btn-success:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
         }
         
         .btn-danger {
             background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
             color: white;
+        }
+        
+        .btn-danger:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
         
         .result-card {
@@ -301,6 +361,57 @@
             font-weight: 600;
         }
         
+        .user-info {
+            background: #e8f8f5;
+            border-left-color: #1abc9c;
+            margin-bottom: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+        
+        .user-info-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+        
+        .login-error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .usage-limit {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .admin-badge {
+            background: #3498db;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .info-box {
+            background: #e8f4fc;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border-left: 4px solid #3498db;
+        }
+        
         @media (max-width: 600px) {
             .header h1 {
                 font-size: 1.5rem;
@@ -334,29 +445,91 @@
     <div class="container">
         <div class="header">
             <h1>📊 Анализатор статистических данных</h1>
-            <p>Проверка распределения случайных величин и статистический анализ</p>
+            <p>Профессиональная система анализа с авторизацией</p>
         </div>
         
         <div class="main-content">
-            <div class="data-section input-section">
+            <!-- Секция авторизации -->
+            <div class="login-section" id="loginSection">
                 <div class="section-title">
-                    <span>📝 Ввод данных</span>
+                    <span>🔐 Авторизация</span>
                 </div>
-                <p>Введите значения через запятую или используйте пример:</p>
-                <textarea id="dataInput" class="data-input" placeholder="Введите данные через запятую">
-132.00, 123.43, 137.74, 129.34, 132.38, 126.95, 130.57, 126.80, 135.81, 135.56, 127.49, 127.40, 132.41, 136.96, 129.69, 122.72, 128.03, 124.47, 134.27, 129.82, 118.95, 122.15, 132.80, 132.41, 124.55, 128.65, 132.35, 122.55, 128.17, 133.00, 137.24, 127.52, 138.46, 138.79, 131.96, 129.75, 132.68, 132.27, 130.84, 119.66, 133.36, 136.42, 124.70, 124.69, 137.96, 126.28, 133.07, 137.48, 122.35, 127.67</textarea>
+                <div class="login-form">
+                    <div class="form-group">
+                        <label for="username">Логин:</label>
+                        <input type="text" id="username" class="form-control" placeholder="Введите ваш логин">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Пароль:</label>
+                        <input type="password" id="password" class="form-control" placeholder="Введите ваш пароль">
+                    </div>
+                    <div class="buttons">
+                        <button id="loginBtn" class="btn btn-primary">
+                            <span>🔑</span> Войти в систему
+                        </button>
+                    </div>
+                </div>
+                <div id="loginError" class="login-error">
+                    Неверный логин или пароль
+                </div>
                 
-                <div class="buttons">
-                    <button id="analyzeBtn" class="btn btn-primary">
-                        <span>⚡</span> Проанализировать данные
-                    </button>
-                    <button id="clearBtn" class="btn btn-danger">
-                        <span>🗑️</span> Очистить
+                <div class="info-box">
+                    <div class="formula-title">Информация о системе:</div>
+                    <div>• Доступно 20 пользовательских аккаунтов</div>
+                    <div>• Каждый пользовательский аккаунт: <strong>2 проверки</strong></div>
+                    <div>• Административный аккаунт: <strong>без ограничений</strong></div>
+                    <div style="margin-top: 10px; color: #e74c3c; font-weight: bold;">
+                        ⚠️ Для получения доступа обратитесь к администратору
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Информация о пользователе -->
+            <div class="user-info" id="userInfo">
+                <div class="user-info-item">
+                    <span>👤 Пользователь:</span>
+                    <span>
+                        <span id="currentUser"></span>
+                        <span id="adminBadge" class="admin-badge" style="display: none;">АДМИН</span>
+                    </span>
+                </div>
+                <div class="user-info-item" id="checksInfo">
+                    <span>🔄 Осталось проверок:</span>
+                    <span id="remainingChecks"></span>
+                </div>
+                <div class="user-info-item">
+                    <button id="logoutBtn" class="btn btn-danger" style="padding: 8px 16px; font-size: 0.9rem;">
+                        <span>🚪</span> Завершить сеанс
                     </button>
                 </div>
             </div>
             
-            <div class="tab-container">
+            <!-- Секция ввода данных (после авторизации) -->
+            <div class="data-section input-section" id="dataSection">
+                <div class="section-title">
+                    <span>📝 Ввод данных для анализа</span>
+                </div>
+                
+                <div id="usageLimitWarning" class="usage-limit">
+                    ⚠️ У вас осталась 1 проверка. Используйте ее внимательно!
+                </div>
+                
+                <p>Введите значения через запятую или используйте пример:</p>
+                <textarea id="dataInput" class="data-input" placeholder="Введите числовые данные через запятую">
+132.00, 123.43, 137.74, 129.34, 132.38, 126.95, 130.57, 126.80, 135.81, 135.56, 127.49, 127.40, 132.41, 136.96, 129.69, 122.72, 128.03, 124.47, 134.27, 129.82, 118.95, 122.15, 132.80, 132.41, 124.55, 128.65, 132.35, 122.55, 128.17, 133.00, 137.24, 127.52, 138.46, 138.79, 131.96, 129.75, 132.68, 132.27, 130.84, 119.66, 133.36, 136.42, 124.70, 124.69, 137.96, 126.28, 133.07, 137.48, 122.35, 127.67</textarea>
+                
+                <div class="buttons">
+                    <button id="analyzeBtn" class="btn btn-primary">
+                        <span>⚡</span> Выполнить анализ
+                    </button>
+                    <button id="clearBtn" class="btn btn-danger">
+                        <span>🗑️</span> Очистить поле
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Вкладки с результатами -->
+            <div class="tab-container" id="tabsContainer" style="display: none;">
                 <div class="tab active" data-tab="basic">📈 Основные параметры</div>
                 <div class="tab" data-tab="distribution">📊 Распределение</div>
                 <div class="tab" data-tab="confidence">🔬 Доверительные интервалы</div>
@@ -387,11 +560,6 @@
                     <div class="result-card">
                         <h3>🔍 3. Проверка нормального распределения</h3>
                         <div id="normalityCheck"></div>
-                    </div>
-                    
-                    <div id="logResultsContainer" class="result-card" style="display: none;">
-                        <h3>📊 3.1 Проверка логарифмированных данных</h3>
-                        <div id="logResults"></div>
                     </div>
                     
                     <div class="result-card">
@@ -438,11 +606,17 @@
                 <h3>⚠️ Ошибка</h3>
                 <p id="errorText"></p>
             </div>
+            
+            <div id="limitExceeded" class="result-card" style="display: none; background: #fff3cd; color: #856404; border-left-color: #f39c12;">
+                <h3>⛔ Лимит проверок исчерпан</h3>
+                <p>Вы использовали все доступные проверки (2 проверки на пользователя).</p>
+                <p>Для продолжения работы обратитесь к администратору системы.</p>
+            </div>
         </div>
         
         <div class="footer">
-            <p>© 2024 Анализатор статистических данных</p>
-            <p>Для проверки нормального распределения случайных величин</p>
+            <p>© 2024 Профессиональный анализатор статистических данных</p>
+            <p>Система с авторизацией и управлением доступом</p>
         </div>
     </div>
 
@@ -450,45 +624,261 @@
     <script>
         let chartInstance = null;
         let currentData = [];
-        let calculationDetails = {
-            n: 0,
-            x̄: 0,
-            S: 0,
-            S2: 0,
-            modeDetails: {},
-            grubbsDetails: {},
-            confidenceDetails: {},
-            sturgesDetails: {},
-            frequencies: []
+        let currentUser = null;
+        let isAdmin = false;
+        let remainingChecks = 0;
+        
+        // Генерация 20 уникальных пользователей с логинами и паролями
+        const users = {};
+        const userCredentials = [];
+        
+        // Генерация логинов и паролей
+        for (let i = 1; i <= 20; i++) {
+            const login = `user${i.toString().padStart(2, '0')}`; // user01, user02, ..., user20
+            const password = this.generatePassword();
+            
+            users[login] = {
+                password: password,
+                checksUsed: 0,
+                isAdmin: false,
+                maxChecks: 2
+            };
+            
+            userCredentials.push({
+                login: login,
+                password: password,
+                isAdmin: false
+            });
+        }
+        
+        // Административный аккаунт (неограниченные проверки)
+        users['admin'] = {
+            password: 'Admin@2024#Secure',
+            checksUsed: 0,
+            isAdmin: true,
+            maxChecks: Infinity
         };
+        
+        userCredentials.push({
+            login: 'admin',
+            password: 'Admin@2024#Secure',
+            isAdmin: true
+        });
+        
+        // Функция генерации безопасного пароля
+        function generatePassword() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+            let password = '';
+            for (let i = 0; i < 10; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
+        }
+        
+        // Функция для сохранения учетных данных в файл (для администратора)
+        function exportCredentials() {
+            const credentialsText = userCredentials.map(cred => 
+                `Логин: ${cred.login} | Пароль: ${cred.password} | ${cred.isAdmin ? 'Администратор' : 'Пользователь (2 проверки)'}`
+            ).join('\n');
+            
+            const blob = new Blob([credentialsText], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'credentials.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        // Локальное хранилище для сохранения состояния между сессиями
+        function loadUserState() {
+            const savedState = localStorage.getItem('statAnalyzerUsers');
+            if (savedState) {
+                const parsed = JSON.parse(savedState);
+                Object.keys(parsed).forEach(username => {
+                    if (users[username]) {
+                        users[username].checksUsed = parsed[username].checksUsed || 0;
+                    }
+                });
+            }
+            
+            // Для демонстрации - экспорт учетных данных при первом запуске
+            const firstRun = !localStorage.getItem('statAnalyzerFirstRun');
+            if (firstRun) {
+                localStorage.setItem('statAnalyzerFirstRun', 'true');
+                // Экспорт учетных данных
+                exportCredentials();
+            }
+        }
+        
+        function saveUserState() {
+            const stateToSave = {};
+            Object.keys(users).forEach(username => {
+                stateToSave[username] = {
+                    checksUsed: users[username].checksUsed
+                };
+            });
+            localStorage.setItem('statAnalyzerUsers', JSON.stringify(stateToSave));
+        }
         
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
+            loadUserState();
             setupEventListeners();
-            setupTabs();
-            setTimeout(analyzeData, 100);
         });
         
         function setupEventListeners() {
+            document.getElementById('loginBtn').addEventListener('click', handleLogin);
+            document.getElementById('logoutBtn').addEventListener('click', handleLogout);
             document.getElementById('analyzeBtn').addEventListener('click', analyzeData);
             document.getElementById('clearBtn').addEventListener('click', clearData);
+            
+            // Автовход при нажатии Enter
+            document.getElementById('username').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleLogin();
+            });
+            
+            document.getElementById('password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleLogin();
+            });
         }
         
-        function setupTabs() {
-            const tabs = document.querySelectorAll('.tab');
-            tabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    tabs.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    document.querySelectorAll('.tab-content').forEach(content => {
-                        content.classList.remove('active');
-                    });
-                    
-                    const tabId = this.getAttribute('data-tab');
-                    document.getElementById(`${tabId}Tab`).classList.add('active');
-                });
-            });
+        function handleLogin() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+            
+            // Скрыть предыдущие ошибки
+            document.getElementById('loginError').style.display = 'none';
+            
+            // Проверка учетных данных
+            if (!username || !password) {
+                showLoginError('Введите логин и пароль');
+                return;
+            }
+            
+            if (!users[username] || users[username].password !== password) {
+                showLoginError('Неверный логин или пароль');
+                return;
+            }
+            
+            // Успешный вход
+            currentUser = username;
+            isAdmin = users[username].isAdmin;
+            
+            if (isAdmin) {
+                remainingChecks = Infinity;
+            } else {
+                remainingChecks = users[username].maxChecks - users[username].checksUsed;
+            }
+            
+            // Обновить интерфейс
+            updateUIAfterLogin();
+        }
+        
+        function showLoginError(message) {
+            const errorDiv = document.getElementById('loginError');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+            
+            // Анимация ошибки
+            errorDiv.style.animation = 'none';
+            setTimeout(() => {
+                errorDiv.style.animation = 'shake 0.5s';
+            }, 10);
+            
+            // Добавляем стиль для анимации
+            const style = document.createElement('style');
+            style.innerHTML = `
+                @keyframes shake {
+                    0%, 100% { transform: translateX(0); }
+                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                    20%, 40%, 60%, 80% { transform: translateX(5px); }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        function updateUIAfterLogin() {
+            // Скрыть форму входа
+            document.getElementById('loginSection').style.display = 'none';
+            
+            // Показать информацию о пользователе
+            document.getElementById('userInfo').style.display = 'block';
+            document.getElementById('currentUser').textContent = currentUser;
+            
+            // Показать/скрыть бейдж администратора
+            const adminBadge = document.getElementById('adminBadge');
+            const checksInfo = document.getElementById('checksInfo');
+            
+            if (isAdmin) {
+                adminBadge.style.display = 'inline-block';
+                checksInfo.style.display = 'none';
+            } else {
+                adminBadge.style.display = 'none';
+                checksInfo.style.display = 'flex';
+                document.getElementById('remainingChecks').textContent = `${remainingChecks} из ${users[currentUser].maxChecks}`;
+            }
+            
+            // Показать секцию ввода данных
+            document.getElementById('dataSection').style.display = 'block';
+            
+            // Показать вкладки
+            document.getElementById('tabsContainer').style.display = 'flex';
+            
+            // Обновить состояние кнопки анализа
+            updateAnalyzeButtonState();
+            
+            // Показать предупреждение если осталась 1 проверка (только для обычных пользователей)
+            if (!isAdmin && remainingChecks === 1) {
+                document.getElementById('usageLimitWarning').style.display = 'block';
+            } else {
+                document.getElementById('usageLimitWarning').style.display = 'none';
+            }
+            
+            // Скрыть сообщение о превышении лимита если оно было показано
+            document.getElementById('limitExceeded').style.display = 'none';
+        }
+        
+        function handleLogout() {
+            // Сброс состояния
+            currentUser = null;
+            isAdmin = false;
+            remainingChecks = 0;
+            
+            // Скрыть все секции кроме входа
+            document.getElementById('userInfo').style.display = 'none';
+            document.getElementById('dataSection').style.display = 'none';
+            document.getElementById('tabsContainer').style.display = 'none';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+            document.getElementById('limitExceeded').style.display = 'none';
+            
+            // Показать форму входа
+            document.getElementById('loginSection').style.display = 'block';
+            
+            // Очистить поля входа
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('loginError').style.display = 'none';
+            
+            // Очистить график если есть
+            if (chartInstance) {
+                chartInstance.destroy();
+                chartInstance = null;
+            }
+        }
+        
+        function updateAnalyzeButtonState() {
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            if (!isAdmin && remainingChecks <= 0) {
+                analyzeBtn.disabled = true;
+                analyzeBtn.innerHTML = '<span>⛔</span> Лимит исчерпан';
+            } else {
+                analyzeBtn.disabled = false;
+                analyzeBtn.innerHTML = '<span>⚡</span> Выполнить анализ';
+            }
         }
         
         function parseData(input) {
@@ -505,18 +895,51 @@
         }
         
         function analyzeData() {
+            // Проверка лимита (только для обычных пользователей)
+            if (!isAdmin && remainingChecks <= 0) {
+                document.getElementById('limitExceeded').style.display = 'block';
+                document.getElementById('results').style.display = 'none';
+                return;
+            }
+            
             try {
                 const input = document.getElementById('dataInput').value;
                 currentData = parseData(input);
                 
+                // Скрыть предыдущие сообщения
+                document.getElementById('errorMessage').style.display = 'none';
+                document.getElementById('limitExceeded').style.display = 'none';
+                
+                // Показать загрузчик
                 document.getElementById('loader').style.display = 'block';
                 document.getElementById('results').style.display = 'none';
-                document.getElementById('errorMessage').style.display = 'none';
                 
+                // Уменьшить счетчик проверок (только для обычных пользователей)
+                if (!isAdmin) {
+                    remainingChecks--;
+                    users[currentUser].checksUsed++;
+                    saveUserState();
+                    
+                    // Обновить UI
+                    document.getElementById('remainingChecks').textContent = `${remainingChecks} из ${users[currentUser].maxChecks}`;
+                    updateAnalyzeButtonState();
+                    
+                    // Показать/скрыть предупреждение о лимите
+                    if (remainingChecks === 1) {
+                        document.getElementById('usageLimitWarning').style.display = 'block';
+                    } else {
+                        document.getElementById('usageLimitWarning').style.display = 'none';
+                    }
+                }
+                
+                // Имитация загрузки и выполнение расчетов
                 setTimeout(() => {
                     performCalculations(currentData);
                     document.getElementById('loader').style.display = 'none';
                     document.getElementById('results').style.display = 'block';
+                    
+                    // Переключиться на первую вкладку
+                    setupTabs();
                     document.querySelector('.tab').click();
                 }, 500);
                 
@@ -527,18 +950,36 @@
             }
         }
         
+        function setupTabs() {
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => {
+                tab.removeEventListener('click', tab.clickHandler);
+                
+                tab.clickHandler = function() {
+                    tabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    document.querySelectorAll('.tab-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+                    
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(`${tabId}Tab`).classList.add('active');
+                };
+                
+                tab.addEventListener('click', tab.clickHandler);
+            });
+        }
+        
         function calculateMode(data) {
-            // Группировка данных для расчета моды
             const min = Math.min(...data);
             const max = Math.max(...data);
             const range = max - min;
             const n = data.length;
             
-            // Определяем шаг интервала по формуле Стерджеса
             const kSturges = Math.ceil(1 + 3.322 * Math.log10(n));
             const h = range / kSturges;
             
-            // Создаем интервалы
             const intervals = [];
             let current = min;
             while (current < max + h) {
@@ -546,7 +987,6 @@
                 current += h;
             }
             
-            // Считаем частоты
             const frequencies = {};
             intervals.forEach(interval => {
                 const [lower, upper] = interval;
@@ -556,7 +996,6 @@
                 };
             });
             
-            // Находим модальный интервал
             let modalInterval = null;
             let maxFreq = -1;
             
@@ -567,7 +1006,6 @@
                 }
             });
             
-            // Получаем частоты соседних интервалов
             const intervalIndex = intervals.findIndex(interval => 
                 interval[0] === modalInterval[0] && interval[1] === modalInterval[1]);
             
@@ -576,7 +1014,6 @@
             const nextFreq = intervalIndex < intervals.length - 1 ? 
                 frequencies[`${intervals[intervalIndex+1][0].toFixed(2)}-${intervals[intervalIndex+1][1].toFixed(2)}`].count : 0;
             
-            // Применяем формулу моды
             const h_m0_H = modalInterval[0];
             const m_m0 = maxFreq;
             const m_m0_minus_1 = prevFreq;
@@ -606,6 +1043,8 @@
             };
         }
         
+        let calculationDetails = {};
+        
         function performCalculations(data) {
             const n = data.length;
             const sum = data.reduce((a, b) => a + b, 0);
@@ -614,48 +1053,38 @@
             const max = Math.max(...data);
             const range = max - min;
             
-            // Основные моменты
             const deviations = data.map(x => x - mean);
             const sumSquares = deviations.reduce((sum, d) => sum + d * d, 0);
             const variance = sumSquares / n;
             const std = Math.sqrt(variance);
             
-            // Асимметрия и эксцесс
             const sumCubes = deviations.reduce((sum, d) => sum + d * d * d, 0);
             const sumQuarts = deviations.reduce((sum, d) => sum + d * d * d * d, 0);
             const skewness = sumCubes / (n * Math.pow(std, 3));
             const kurtosis = sumQuarts / (n * Math.pow(std, 4)) - 3;
             
-            // Коэффициент вариации
             const cv = (std / mean) * 100;
             
-            // Мода (подробный расчет)
             const modeDetails = calculateMode(data);
             const mode = modeDetails.mode;
             
-            // Медиана
             const sorted = [...data].sort((a, b) => a - b);
             const median = n % 2 === 0 ? 
                 (sorted[n/2 - 1] + sorted[n/2]) / 2 : 
                 sorted[Math.floor(n/2)];
             
-            // Критерий Грабба
             const grubbs1 = (max - mean) / std;
             const grubbs2 = (mean - min) / std;
             const grubbsCritical = 3.14;
-            const hasOutliers = grubbs1 > grubbsCritical || grubbs2 > grubbsCritical;
             
-            // Доверительный интервал
             const tValue = 2.009;
             const marginError = tValue * (std / Math.sqrt(n));
             const ciLower = mean - marginError;
             const ciUpper = mean + marginError;
             
-            // Формула Стерджеса
             const kSturges = Math.ceil(1 + 3.322 * Math.log10(n));
             const hSturges = range / kSturges;
             
-            // Создаем таблицу частот для группировки по Стерджесу
             const frequencies = [];
             for (let i = 0; i < kSturges; i++) {
                 const lower = min + i * hSturges;
@@ -674,12 +1103,9 @@
                 });
             }
             
-            // Проверка нормальности
             const seSkew = Math.sqrt(6 * (n - 1) / ((n + 1) * (n + 3)));
             const seKurt = Math.sqrt(24 * n * (n - 2) * (n - 3) / (Math.pow(n - 1, 2) * (n + 3) * (n + 5)));
-            const isNormal = Math.abs(skewness) <= 3 * seSkew && Math.abs(kurtosis) <= 5 * seKurt;
             
-            // Сохраняем детали расчетов
             calculationDetails = {
                 n: n,
                 x̄: mean,
@@ -694,7 +1120,6 @@
                     g1: grubbs1,
                     g2: grubbs2,
                     critical: grubbsCritical,
-                    hasOutliers: hasOutliers,
                     min: min,
                     max: max
                 },
@@ -713,14 +1138,12 @@
                 skewness: skewness,
                 kurtosis: kurtosis,
                 seSkew: seSkew,
-                seKurt: seKurt,
-                isNormal: isNormal
+                seKurt: seKurt
             };
             
-            // Обновление интерфейса
             updateBasicResults(n, sum, mean, min, max, range, mode, median);
             updateDistributionResults(variance, std, skewness, kurtosis, cv, sumSquares, sumCubes, sumQuarts);
-            updateNormalityCheck(isNormal, skewness, kurtosis, seSkew, seKurt);
+            updateNormalityCheck(skewness, kurtosis, seSkew, seKurt);
             updateGrubbsResults();
             updateConfidenceResults();
             updateSturgesResults();
@@ -739,16 +1162,11 @@
                     
                     <div class="formula-title">Расчет моды:</div>
                     <div class="formula">m₀ = hₘ₀ᴴ + h × (mₘ₀ - mₘ₀₋₁) / (2mₘ₀ - mₘ₀₋₁ - mₘ₀₊₁)</div>
-                    <div class="formula">
-                        m₀ = ${modeDetails.h_m0_H} + ${modeDetails.h} × 
-                        (${modeDetails.m_m0} - ${modeDetails.m_m0_minus_1}) / 
-                        (2×${modeDetails.m_m0} - ${modeDetails.m_m0_minus_1} - ${modeDetails.m_m0_plus_1})
-                    </div>
                     ${modeDetails.denominator !== 0 ? `
                     <div class="formula">
                         m₀ = ${modeDetails.h_m0_H} + ${modeDetails.h} × 
                         (${modeDetails.numerator} / ${modeDetails.denominator}) = 
-                        ${modeDetails.h_m0_H} + ${(modeDetails.h * modeDetails.numerator/modeDetails.denominator).toFixed(4)}
+                        ${mode.toFixed(4)}
                     </div>
                     ` : ''}
                 </div>
@@ -799,9 +1217,6 @@
                     
                     <div class="formula-title">Формула асимметрии:</div>
                     <div class="formula">A = (1/(n × S³)) × Σ(x_i - x̄)³ = (1/(${n} × ${Math.pow(S, 3).toFixed(6)})) × ${sumCubes.toFixed(6)} = ${skewness.toFixed(6)}</div>
-                    
-                    <div class="formula-title">Формула эксцесса:</div>
-                    <div class="formula">E = (1/(n × S⁴)) × Σ(x_i - x̄)⁴ - 3 = (1/(${n} × ${Math.pow(S, 4).toFixed(6)})) × ${sumQuarts.toFixed(6)} - 3 = ${kurtosis.toFixed(6)}</div>
                 </div>
                 
                 <div class="result-item">
@@ -828,25 +1243,25 @@
             document.getElementById('distributionResults').innerHTML = html;
         }
         
-        function updateNormalityCheck(isNormal, skewness, kurtosis, seSkew, seKurt) {
+        function updateNormalityCheck(skewness, kurtosis, seSkew, seKurt) {
             const { n } = calculationDetails;
             const condition1 = Math.abs(skewness) <= 3 * seSkew;
             const condition2 = Math.abs(kurtosis) <= 5 * seKurt;
+            const isNormal = condition1 && condition2;
             
             const html = `
                 <div class="calculation-step">
                     <div class="formula-title">Формула S_A:</div>
                     <div class="formula">S_A = √[6(n-1)/((n+1)(n+3))] = √[6(${n}-1)/((${n}+1)(${n}+3))] = ${seSkew.toFixed(6)}</div>
                     
-                    <div class="formula-title">Формула S_E:</div>
-                    <div class="formula">S_E = √[24n(n-2)(n-3)/((n-1)²(n+3)(n+5))] = √[24×${n}×(${n}-2)×(${n}-3)/((${n}-1)²×(${n}+3)×(${n}+5))] = ${seKurt.toFixed(6)}</div>
+                    <div class="formula-title">Проверка условий:</div>
+                    <div class="formula">|${skewness.toFixed(6)}| ≤ 3 × ${seSkew.toFixed(6)} = ${(3 * seSkew).toFixed(6)}</div>
+                    <div class="formula">|${kurtosis.toFixed(6)}| ≤ 5 × ${seKurt.toFixed(6)} = ${(5 * seKurt).toFixed(6)}</div>
                 </div>
                 
                 <div class="result-item">
                     <span class="result-label">Условие 1: |A| ≤ 3 × S_A</span>
                     <span class="result-value">
-                        |${skewness.toFixed(6)}| ≤ 3 × ${seSkew.toFixed(6)}<br>
-                        ${Math.abs(skewness).toFixed(6)} ≤ ${(3 * seSkew).toFixed(6)}<br>
                         <span class="status-badge ${condition1 ? 'status-success' : 'status-danger'}">
                             ${condition1 ? '✓ ВЫПОЛНЕНО' : '✗ НЕ ВЫПОЛНЕНО'}
                         </span>
@@ -855,8 +1270,6 @@
                 <div class="result-item">
                     <span class="result-label">Условие 2: |E| ≤ 5 × S_E</span>
                     <span class="result-value">
-                        |${kurtosis.toFixed(6)}| ≤ 5 × ${seKurt.toFixed(6)}<br>
-                        ${Math.abs(kurtosis).toFixed(6)} ≤ ${(5 * seKurt).toFixed(6)}<br>
                         <span class="status-badge ${condition2 ? 'status-success' : 'status-danger'}">
                             ${condition2 ? '✓ ВЫПОЛНЕНО' : '✗ НЕ ВЫПОЛНЕНО'}
                         </span>
@@ -875,7 +1288,7 @@
         }
         
         function updateGrubbsResults() {
-            const { g1, g2, critical, hasOutliers, min, max } = calculationDetails.grubbsDetails;
+            const { g1, g2, critical, min, max } = calculationDetails.grubbsDetails;
             const { x̄, S } = calculationDetails;
             
             const html = `
@@ -887,23 +1300,15 @@
                 
                 <div class="result-item">
                     <span class="result-label">Критерий G₁ (для максимума):</span>
-                    <span class="result-value">${g1.toFixed(6)} ${g1 > critical ? ' > ' : ' ≤ '} ${critical.toFixed(2)}</span>
+                    <span class="result-value">${g1.toFixed(6)}</span>
                 </div>
                 <div class="result-item">
                     <span class="result-label">Критерий G₂ (для минимума):</span>
-                    <span class="result-value">${g2.toFixed(6)} ${g2 > critical ? ' > ' : ' ≤ '} ${critical.toFixed(2)}</span>
+                    <span class="result-value">${g2.toFixed(6)}</span>
                 </div>
                 <div class="result-item">
                     <span class="result-label">Теоретическое значение G_T:</span>
                     <span class="result-value">${critical.toFixed(2)}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Наличие выбросов:</span>
-                    <span class="result-value">
-                        <span class="status-badge ${hasOutliers ? 'status-danger' : 'status-success'}">
-                            ${hasOutliers ? 'ОБНАРУЖЕНЫ' : 'НЕ ОБНАРУЖЕНЫ'}
-                        </span>
-                    </span>
                 </div>
             `;
             document.getElementById('grubbsResults').innerHTML = html;
@@ -912,14 +1317,11 @@
         function updateConfidenceResults() {
             const { tValue, marginError, ciLower, ciUpper } = calculationDetails.confidenceDetails;
             const { n, x̄, S2 } = calculationDetails;
-            const m = n - 1;
             
             const html = `
                 <div class="calculation-step">
                     <div class="formula-title">Формула доверительного интервала:</div>
-                    <div class="formula">Δ = t_(α/2,m) × √(S²/n) = ${tValue} × √(${S2.toFixed(6)}/${n})</div>
-                    <div class="formula">Δ = ${tValue} × ${Math.sqrt(S2/n).toFixed(6)} = ${marginError.toFixed(6)}</div>
-                    <div class="formula">x̄ - Δ ≤ x_ист ≤ x̄ + Δ</div>
+                    <div class="formula">Δ = t_(α/2,m) × √(S²/n) = ${tValue} × √(${S2.toFixed(6)}/${n}) = ${marginError.toFixed(6)}</div>
                     <div class="formula">${x̄.toFixed(6)} - ${marginError.toFixed(6)} ≤ x_ист ≤ ${x̄.toFixed(6)} + ${marginError.toFixed(6)}</div>
                 </div>
                 
@@ -930,18 +1332,6 @@
                 <div class="result-item">
                     <span class="result-label">Предельная ошибка (Δ):</span>
                     <span class="result-value">${marginError.toFixed(6)}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Коэффициент Стьюдента:</span>
-                    <span class="result-value">${tValue}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Число степеней свободы:</span>
-                    <span class="result-value">${m}</span>
-                </div>
-                <div class="result-item">
-                    <span class="result-label">Длина интервала:</span>
-                    <span class="result-value">${(ciUpper - ciLower).toFixed(6)}</span>
                 </div>
             `;
             document.getElementById('confidenceResults').innerHTML = html;
@@ -966,24 +1356,19 @@
                     <span class="result-label">Шаг интервала (h):</span>
                     <span class="result-value">${h.toFixed(4)}</span>
                 </div>
-                <div class="result-item">
-                    <span class="result-label">Диапазон (R):</span>
-                    <span class="result-value">${range.toFixed(4)}</span>
-                </div>
             `;
             document.getElementById('sturgesResults').innerHTML = html;
         }
         
         function updateFrequenciesTable() {
             const frequencies = calculationDetails.frequencies;
-            const { n } = calculationDetails;
             
             let tableHtml = `
                 <table class="frequencies-table">
                     <thead>
                         <tr>
                             <th>Класс</th>
-                            <th>Середина класса</th>
+                            <th>Середина</th>
                             <th>Частота</th>
                             <th>Частость</th>
                             <th>%</th>
@@ -991,10 +1376,6 @@
                     </thead>
                     <tbody>
             `;
-            
-            let totalFreq = 0;
-            let totalRelative = 0;
-            let totalPercentage = 0;
             
             frequencies.forEach(freq => {
                 const [lower, upper] = freq.interval;
@@ -1007,29 +1388,11 @@
                         <td>${freq.percentage.toFixed(1)}%</td>
                     </tr>
                 `;
-                
-                totalFreq += freq.count;
-                totalRelative += freq.relativeFreq;
-                totalPercentage += freq.percentage;
             });
             
             tableHtml += `
-                    <tr style="background: #f8f9fa; font-weight: bold;">
-                        <td>Проверка</td>
-                        <td>-</td>
-                        <td>${totalFreq}</td>
-                        <td>${totalRelative.toFixed(3)}</td>
-                        <td>${totalPercentage.toFixed(1)}%</td>
-                    </tr>
                 </tbody>
-            </table>
-            
-            <div class="calculation-step" style="margin-top: 15px;">
-                <div class="formula-title">Проверка сумм:</div>
-                <div>Сумма частот: ${totalFreq} (должно быть равно n=${n})</div>
-                <div>Сумма частостей: ${totalRelative.toFixed(3)} (должно быть равно 1.000)</div>
-                <div>Сумма процентов: ${totalPercentage.toFixed(1)}% (должно быть равно 100.0%)</div>
-            </div>
+                </table>
             `;
             
             document.getElementById('frequenciesTable').innerHTML = tableHtml;
@@ -1039,7 +1402,7 @@
             const frequencies = calculationDetails.frequencies;
             
             let html = `
-                <div class="formula-title">Данные для построения полигона частот:</div>
+                <div class="formula-title">Данные для построения:</div>
                 <table class="frequencies-table">
                     <thead>
                         <tr>
@@ -1062,42 +1425,6 @@
             html += `
                 </tbody>
                 </table>
-                
-                <div class="formula-title" style="margin-top: 15px;">Данные для построения гистограммы:</div>
-                <table class="frequencies-table">
-                    <thead>
-                        <tr>
-                            <th>Интервал</th>
-                            <th>Частота</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
-            
-            frequencies.forEach(freq => {
-                const [lower, upper] = freq.interval;
-                html += `
-                    <tr>
-                        <td>[${lower.toFixed(2)}-${upper.toFixed(2)})</td>
-                        <td>${freq.count}</td>
-                    </tr>
-                `;
-            });
-            
-            html += `
-                </tbody>
-                </table>
-                
-                <div class="calculation-step" style="margin-top: 15px;">
-                    <div class="formula-title">Для построения гистограммы:</div>
-                    <div>1. По оси X откладываем интервалы классов</div>
-                    <div>2. По оси Y откладываем частоты</div>
-                    <div>3. Строим прямоугольники высотой, равной частоте соответствующего класса</div>
-                    
-                    <div class="formula-title" style="margin-top: 10px;">Для построения полигона частот:</div>
-                    <div>1. В середине каждого интервала откладываем точку на высоте, равной частоте</div>
-                    <div>2. Соединяем полученные точки отрезками прямых</div>
-                </div>
             `;
             
             document.getElementById('graphData').innerHTML = html;
@@ -1112,7 +1439,6 @@
             const bins = frequencies.map(f => `[${f.interval[0].toFixed(2)}-${f.interval[1].toFixed(2)})`);
             const histData = frequencies.map(f => f.count);
             const polygonData = frequencies.map(f => f.count);
-            const midpoints = frequencies.map(f => f.midpoint);
             
             const ctx = document.getElementById('histogramChart').getContext('2d');
             chartInstance = new Chart(ctx, {
@@ -1133,13 +1459,10 @@
                             data: polygonData,
                             type: 'line',
                             borderColor: 'rgba(231, 76, 60, 1)',
-                            backgroundColor: 'rgba(231, 76, 60, 0.1)',
                             borderWidth: 3,
                             pointRadius: 6,
                             pointBackgroundColor: 'rgba(231, 76, 60, 1)',
-                            pointBorderColor: 'rgba(231, 76, 60, 1)',
-                            fill: false,
-                            tension: 0.1
+                            fill: false
                         }
                     ]
                 },
@@ -1148,19 +1471,7 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            display: true,
                             position: 'top'
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    if (context.datasetIndex === 0) {
-                                        return `Гистограмма: ${context.raw}`;
-                                    } else {
-                                        return `Полигон: ${context.raw}`;
-                                    }
-                                }
-                            }
                         }
                     },
                     scales: {
@@ -1174,10 +1485,9 @@
                         x: {
                             title: {
                                 display: true,
-                                text: 'Интервалы значений'
+                                text: 'Интервалы'
                             },
                             ticks: {
-                                autoSkip: true,
                                 maxRotation: 45
                             }
                         }
