@@ -472,6 +472,17 @@
                 <div id="loginError" class="login-error">
                     Неверный логин или пароль
                 </div>
+                
+                <div class="info-box">
+                    <div class="formula-title">Информация о системе:</div>
+                    <div>• Доступно 20 пользовательских аккаунтов (user01-user20)</div>
+                    <div>• Каждый пользовательский аккаунт: <strong>2 проверки</strong></div>
+                    <div>• Административный аккаунт: <strong>без ограничений</strong> (admin)</div>
+                    <div style="margin-top: 10px; color: #e74c3c; font-weight: bold;">
+                        ⚠️ Для получения доступа обратитесь к администратору
+                    </div>
+                </div>
+            </div>
             
             <!-- Информация о пользователе -->
             <div class="user-info" id="userInfo">
@@ -617,47 +628,45 @@
         let isAdmin = false;
         let remainingChecks = 0;
         
-    // УДАЛИТЕ старый код генерации и ВСТАВЬТЕ этот:
-
-const users = {};
-
-// 20 пользователей с простыми паролями
-const userAccounts = [
-    { login: 'user01', password: 'pass379', isAdmin: false },
-    { login: 'user02', password: 'pass426', isAdmin: false },
-    { login: 'user03', password: 'pass719', isAdmin: false },
-    { login: 'user04', password: 'pass649', isAdmin: false },
-    { login: 'user05', password: 'pass384', isAdmin: false },
-    { login: 'user06', password: 'pass324', isAdmin: false },
-    { login: 'user07', password: 'pass926', isAdmin: false },
-    { login: 'user08', password: 'pass909', isAdmin: false },
-    { login: 'user09', password: 'pass795', isAdmin: false },
-    { login: 'user10', password: 'pass637', isAdmin: false },
-    { login: 'user11', password: 'pass834', isAdmin: false },
-    { login: 'user12', password: 'pass779', isAdmin: false },
-    { login: 'user13', password: 'pass355', isAdmin: false },
-    { login: 'user14', password: 'pass467', isAdmin: false },
-    { login: 'user15', password: 'pass227', isAdmin: false },
-    { login: 'user16', password: 'pass949', isAdmin: false },
-    { login: 'user17', password: 'pass390', isAdmin: false },
-    { login: 'user18', password: 'pass746', isAdmin: false },
-    { login: 'user19', password: 'pass308', isAdmin: false },
-    { login: 'user20', password: 'pass069', isAdmin: false },
-    // Администратор
-    { login: 'admin', password: 'harderror06', isAdmin: true }
-];
-
-// Создаем пользователей
-userAccounts.forEach(account => {
-    users[account.login] = {
-        password: account.password,
-        checksUsed: 0,
-        isAdmin: account.isAdmin,
-        maxChecks: account.isAdmin ? Infinity : 2
-    };
-});
+        // Ваши учетные данные
+        const users = {};
         
-           
+        // Список пользователей с вашими данными
+        const userAccounts = [
+            { login: 'user01', password: 'pass379', isAdmin: false },
+            { login: 'user02', password: 'pass426', isAdmin: false },
+            { login: 'user03', password: 'pass719', isAdmin: false },
+            { login: 'user04', password: 'pass649', isAdmin: false },
+            { login: 'user05', password: 'pass384', isAdmin: false },
+            { login: 'user06', password: 'pass324', isAdmin: false },
+            { login: 'user07', password: 'pass926', isAdmin: false },
+            { login: 'user08', password: 'pass909', isAdmin: false },
+            { login: 'user09', password: 'pass795', isAdmin: false },
+            { login: 'user10', password: 'pass637', isAdmin: false },
+            { login: 'user11', password: 'pass834', isAdmin: false },
+            { login: 'user12', password: 'pass779', isAdmin: false },
+            { login: 'user13', password: 'pass355', isAdmin: false },
+            { login: 'user14', password: 'pass467', isAdmin: false },
+            { login: 'user15', password: 'pass227', isAdmin: false },
+            { login: 'user16', password: 'pass949', isAdmin: false },
+            { login: 'user17', password: 'pass390', isAdmin: false },
+            { login: 'user18', password: 'pass746', isAdmin: false },
+            { login: 'user19', password: 'pass308', isAdmin: false },
+            { login: 'user20', password: 'pass069', isAdmin: false },
+            // Администратор
+            { login: 'admin', password: 'harderror06', isAdmin: true }
+        ];
+        
+        // Создаем пользователей
+        userAccounts.forEach(account => {
+            users[account.login] = {
+                password: account.password,
+                checksUsed: 0,
+                isAdmin: account.isAdmin,
+                maxChecks: account.isAdmin ? Infinity : 2
+            };
+        });
+        
         // Локальное хранилище для сохранения состояния между сессиями
         function loadUserState() {
             const savedState = localStorage.getItem('statAnalyzerUsers');
@@ -669,8 +678,7 @@ userAccounts.forEach(account => {
                     }
                 });
             }
-            
-           
+        }
         
         function saveUserState() {
             const stateToSave = {};
@@ -1467,5 +1475,6 @@ userAccounts.forEach(account => {
     </script>
 </body>
 </html>
+
 
 
