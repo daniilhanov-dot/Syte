@@ -617,70 +617,47 @@
         let isAdmin = false;
         let remainingChecks = 0;
         
-        // Генерация 20 уникальных пользователей с логинами и паролями
-        const users = {};
-        const userCredentials = [];
+    // УДАЛИТЕ старый код генерации и ВСТАВЬТЕ этот:
+
+const users = {};
+
+// 20 пользователей с простыми паролями
+const userAccounts = [
+    { login: 'user01', password: 'pass379', isAdmin: false },
+    { login: 'user02', password: 'pass426', isAdmin: false },
+    { login: 'user03', password: 'pass719', isAdmin: false },
+    { login: 'user04', password: 'pass649', isAdmin: false },
+    { login: 'user05', password: 'pass384', isAdmin: false },
+    { login: 'user06', password: 'pass324', isAdmin: false },
+    { login: 'user07', password: 'pass926', isAdmin: false },
+    { login: 'user08', password: 'pass909', isAdmin: false },
+    { login: 'user09', password: 'pass795', isAdmin: false },
+    { login: 'user10', password: 'pass637', isAdmin: false },
+    { login: 'user11', password: 'pass834', isAdmin: false },
+    { login: 'user12', password: 'pass779', isAdmin: false },
+    { login: 'user13', password: 'pass355', isAdmin: false },
+    { login: 'user14', password: 'pass467', isAdmin: false },
+    { login: 'user15', password: 'pass227', isAdmin: false },
+    { login: 'user16', password: 'pass949', isAdmin: false },
+    { login: 'user17', password: 'pass390', isAdmin: false },
+    { login: 'user18', password: 'pass746', isAdmin: false },
+    { login: 'user19', password: 'pass308', isAdmin: false },
+    { login: 'user20', password: 'pass069', isAdmin: false },
+    // Администратор
+    { login: 'admin', password: 'harderror06', isAdmin: true }
+];
+
+// Создаем пользователей
+userAccounts.forEach(account => {
+    users[account.login] = {
+        password: account.password,
+        checksUsed: 0,
+        isAdmin: account.isAdmin,
+        maxChecks: account.isAdmin ? Infinity : 2
+    };
+});
         
-        // Генерация логинов и паролей
-        for (let i = 1; i <= 20; i++) {
-            const login = `user${i.toString().padStart(2, '0')}`; // user01, user02, ..., user20
-            const password = this.generatePassword();
-            
-            users[login] = {
-                password: password,
-                checksUsed: 0,
-                isAdmin: false,
-                maxChecks: 2
-            };
-            
-            userCredentials.push({
-                login: login,
-                password: password,
-                isAdmin: false
-            });
-        }
-        
-        // Административный аккаунт (неограниченные проверки)
-        users['admin'] = {
-            password: 'Admin@2024#Secure',
-            checksUsed: 0,
-            isAdmin: true,
-            maxChecks: Infinity
-        };
-        
-        userCredentials.push({
-            login: 'admin',
-            password: 'Admin@2024#Secure',
-            isAdmin: true
-        });
-        
-        // Функция генерации безопасного пароля
-        function generatePassword() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-            let password = '';
-            for (let i = 0; i < 10; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return password;
-        }
-        
-        // Функция для сохранения учетных данных в файл (для администратора)
-        function exportCredentials() {
-            const credentialsText = userCredentials.map(cred => 
-                `Логин: ${cred.login} | Пароль: ${cred.password} | ${cred.isAdmin ? 'Администратор' : 'Пользователь (2 проверки)'}`
-            ).join('\n');
-            
-            const blob = new Blob([credentialsText], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'credentials.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-        
+           
         // Локальное хранилище для сохранения состояния между сессиями
         function loadUserState() {
             const savedState = localStorage.getItem('statAnalyzerUsers');
@@ -693,14 +670,7 @@
                 });
             }
             
-            // Для демонстрации - экспорт учетных данных при первом запуске
-            const firstRun = !localStorage.getItem('statAnalyzerFirstRun');
-            if (firstRun) {
-                localStorage.setItem('statAnalyzerFirstRun', 'true');
-                // Экспорт учетных данных
-                exportCredentials();
-            }
-        }
+           
         
         function saveUserState() {
             const stateToSave = {};
@@ -1497,4 +1467,5 @@
     </script>
 </body>
 </html>
+
 
